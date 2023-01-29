@@ -1,0 +1,143 @@
+@charset "UTF-8";
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+h2 {
+  text-align: center;
+  color: black;
+  font-size: 30px;
+}
+
+.heroes {
+  margin: 2%;
+}
+.heroes__container {
+  background-color: #82a43a;
+  padding: 5%;
+  margin: 2%;
+  border-radius: 10px;
+  border: 2px solid black;
+}
+.heroes__photo {
+  max-width: 100%;
+}
+.heroes__photo img {
+  width: 100%;
+}
+.heroes__title {
+  color: black;
+  font-size: 20px;
+}
+.heroes__subtitle {
+  color: white;
+  font-size: 20px;
+}
+.heroes #heroes__content {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  flex-wrap: wrap;
+}
+
+.content {
+  transition: max-height 0.2s;
+  overflow: hidden;
+}
+.content[aria-hidden=true] {
+  max-height: 0;
+}
+.content[aria-hidden=false] {
+  max-height: var(--containerHeight, 1000px);
+}
+
+.star-container {
+  font-family: sans-serif;
+  line-height: 1.2;
+}
+
+.trigger {
+  margin-top: 5%;
+  margin-bottom: 5%;
+  font-size: 1em;
+  display: flex;
+  align-items: center;
+  padding: 5px 20px;
+  min-height: 45px;
+  border: 2px solid white;
+  border-radius: 30px;
+  background-color: transparent;
+  color: #212121;
+}
+.trigger:focus {
+  border: 2px solid #222;
+  outline: 0;
+}
+[data-drawer-showing=true] .trigger {
+  background-color: #3ecf8e;
+  border: 2px solid transparent;
+}
+
+.content {
+  display: flex;
+  line-height: 1.4;
+  max-width: 800px;
+}
+
+.star-cb-group {
+  /* flip the order so we can use the + and ~ combinators */
+  unicode-bidi: bidi-override;
+  direction: rtl;
+  /* the hidden clearer */
+}
+.star-cb-group > input {
+  display: none;
+}
+.star-cb-group > input + label {
+  /* only enough room for the star */
+  display: inline-block;
+  overflow: hidden;
+  text-indent: 9999px;
+  width: 1em;
+  white-space: nowrap;
+  cursor: pointer;
+}
+.star-cb-group > input + label:before {
+  display: inline-block;
+  text-indent: -9999px;
+  content: "☆";
+  color: #888;
+}
+.star-cb-group > input:checked ~ label:before, .star-cb-group > input + label:hover ~ label:before, .star-cb-group > input + label:hover:before {
+  content: "★";
+  color: #e52;
+  text-shadow: 0 0 1px #333;
+}
+.star-cb-group > .star-cb-clear + label {
+  text-indent: -9999px;
+  width: 0.5em;
+  margin-left: -0.5em;
+}
+.star-cb-group > .star-cb-clear + label:before {
+  width: 0.5em;
+}
+.star-cb-group:hover > input + label:before {
+  content: "☆";
+  color: #888;
+  text-shadow: none;
+}
+.star-cb-group:hover > input + label:hover ~ label:before, .star-cb-group:hover > input + label:hover:before {
+  content: "★";
+  color: #e52;
+  text-shadow: 0 0 1px #333;
+}
+
+:root {
+  font-size: 2em;
+  font-family: Helvetica, arial, sans-serif;
+}
+
+fieldset {
+  border: 0;
+}/*# sourceMappingURL=style.css.map */

@@ -1,0 +1,153 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+h2 {
+    text-align: center;
+    color: black;
+    font-size: 30px;
+}
+
+.heroes {
+    margin: 2%;
+
+    &__container {
+        background-color: #82a43a;
+        padding: 5%;
+        margin: 2%;
+        border-radius: 10px;
+        border: 2px solid black;
+    }
+    &__photo {
+        max-width: 100%;
+        img {
+            width: 100%;
+        }
+    }
+    &__title {
+        color: black;
+        font-size: 20px;
+    }
+    &__subtitle {
+        color: white;
+        font-size: 20px;
+    }
+    #heroes__content {
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr;
+        flex-wrap: wrap;
+    }
+}
+.content {
+    transition: max-height 0.2s;
+    overflow: hidden;
+    &[aria-hidden="true"] {
+        max-height: 0;
+    }
+    &[aria-hidden="false"] {
+        max-height: var(--containerHeight, 1000px);
+    }
+}
+
+.star-container {
+    font-family: sans-serif;
+    line-height: 1.2;
+}
+
+.trigger {
+    margin-top: 5%;
+    margin-bottom: 5%;
+    font-size: 1em;
+    display: flex;
+    align-items: center;
+    padding: 5px 20px;
+    min-height: 45px;
+    border: 2px solid white;
+    border-radius: 30px;
+    background-color: transparent;
+    color: #212121;
+    &:focus {
+        border: 2px solid #222;
+        outline: 0;
+    }
+    [data-drawer-showing="true"] & {
+        background-color: #3ecf8e;
+        border: 2px solid transparent;
+    }
+}
+
+.content {
+    display: flex;
+    // margin: 1em;
+    line-height: 1.4;
+    max-width: 800px;
+}
+
+$unchecked-star: "\2606";
+$unchecked-color: #888;
+$checked-star: "\2605";
+$checked-color: #e52;
+
+.star-cb-group {
+    /* flip the order so we can use the + and ~ combinators */
+    unicode-bidi: bidi-override;
+    direction: rtl;
+    & > input {
+        display: none;
+        & + label {
+            /* only enough room for the star */
+            display: inline-block;
+            overflow: hidden;
+            text-indent: 9999px;
+            width: 1em;
+            white-space: nowrap;
+            cursor: pointer;
+            &:before {
+                display: inline-block;
+                text-indent: -9999px;
+                content: $unchecked-star;
+                color: $unchecked-color;
+            }
+        }
+        &:checked ~ label:before,
+        & + label:hover ~ label:before,
+        & + label:hover:before {
+            content: $checked-star;
+            color: #e52;
+            text-shadow: 0 0 1px #333;
+        }
+    }
+
+    /* the hidden clearer */
+    & > .star-cb-clear + label {
+        text-indent: -9999px;
+        width: 0.5em;
+        margin-left: -0.5em;
+    }
+    & > .star-cb-clear + label:before {
+        width: 0.5em;
+    }
+
+    &:hover > input + label:before {
+        content: $unchecked-star;
+        color: $unchecked-color;
+        text-shadow: none;
+    }
+    &:hover > input + label:hover ~ label:before,
+    &:hover > input + label:hover:before {
+        content: $checked-star;
+        color: $checked-color;
+        text-shadow: 0 0 1px #333;
+    }
+}
+
+// extra styles
+:root {
+    font-size: 2em;
+    font-family: Helvetica, arial, sans-serif;
+}
+
+fieldset {
+    border: 0;
+}

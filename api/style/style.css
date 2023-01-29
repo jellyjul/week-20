@@ -1,0 +1,33 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+
+.weather {
+  background-image: url(../image/1651445422_84-vsegda-pomnim-com-p-vodopad-iguasu-foto-94.jpg);
+  background-repeat: no-repeat;
+  background-size: cover;
+  height: 100vh;
+  padding: 5%;
+}
+.weather__container {
+  background-color: rgba(112, 206, 216, 0.57);
+  padding: 5%;
+  height: 300px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.weather h2 {
+  color: rgb(255, 255, 255);
+  font-size: 50px;
+  text-align: center;
+}
+.weather .city,
+.weather .temp,
+.weather .high-low,
+.weather .descr,
+.weather .humidity {
+  color: white;
+  font-size: 30px;
+}/*# sourceMappingURL=style.css.map */
