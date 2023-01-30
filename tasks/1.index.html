@@ -10,7 +10,13 @@
   <body>
     <div class="heroes">
       <div class="heroes__wrapper">
-        <div id="heroes__content"></div>
+        <div id="heroes__content" class="root">
+          <template class="icon" id="tmpl">
+            <svg class="marvel__icon">
+              <use xlink:href="./images/sprite.svg#star2"></use>
+            </svg>
+          </template>
+        </div>
       </div>
     </div>
     <script src="./1.script.js"></script>

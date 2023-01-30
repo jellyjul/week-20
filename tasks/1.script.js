@@ -1,11 +1,11 @@
 // 1. Делаем базу супергероев Марвел. На основе статьи [https://www.ellegirl.ru/articles/vse-o-15-samyih-krutyih-supergeroyah/](https://www.ellegirl.ru/articles/vse-o-15-samyih-krutyih-supergeroyah/) составьте JSON с массивом супергероев. Сделайте страничку-галерею, где можно будет просматривать информацию о героях по этим данным.
-    
+
 //     Что должна уметь страничка: 
-    
+
 //     - показать информацию о героях: их картинки, характеристики, подробное описание
 //     - поставить герою личную оценку (*сохраняем значения в localStorage*)
 //     например, 10/10 или 2/10, как рейтинг
-    
+
 //     Дизайн на ваше усмотрение.
 
 let json = `[{
@@ -103,6 +103,7 @@ document.addEventListener("DOMContentLoaded", function () {
         <div class="heroes__container">
         <div class = "heroes__photo"> 
         <img src = " ${hero.url} ">
+        </div>
         <h2> ${hero.name}</h2>
         <div class="heroes__title">Вселенная: 
         <span class="heroes__subtitle"> ${hero.universe}</span>  
@@ -123,83 +124,162 @@ document.addEventListener("DOMContentLoaded", function () {
 	    <button type="button" class="trigger"> Подробнее </button>
 	    <div class="content heroes__subtitle">	${hero.info}</div>
         </div>
-        <form>
-            <fieldset>
-                <span class="star-cb-group">
-                    <input type="radio" id="rating-5" name="rating" value="5" /><label for="rating-5">5</label>
-                    <input type="radio" id="rating-4" name="rating" value="4" checked="checked" /><label for="rating-4">4</label>
-                    <input type="radio" id="rating-3" name="rating" value="3" /><label for="rating-3">3</label>
-                    <input type="radio" id="rating-2" name="rating" value="2" /><label for="rating-2">2</label>
-                    <input type="radio" id="rating-1" name="rating" value="1" /><label for="rating-1">1</label>
-                    <input type="radio" id="rating-0" name="rating" value="0" class="star-cb-clear" /><label for="rating-0">0</label>
-                </span>
-            </fieldset>
-        </form>
+        <form id = "1">
+        <fieldset>
+            <span class="star-cb-group">
+                <input class="container__input" type="radio" id="rating-1" name="rating" value="1" /><label class="icon" for="rating-5">5</label>
+                <input class="container__input" type="radio" id="rating-2" name="rating" value="2"  /><label class="icon" for="rating-4">4</label>
+                <input class="container__input" type="radio" id="rating-3" name="rating" value="3" /><label class="icon" for="rating-3">3</label>
+                <input class="container__input" type="radio" id="rating-4" name="rating" value="4" /><label class="icon" for="rating-2">2</label>
+                <input class="container__input" type="radio" id="rating-5" name="rating" value="5" /><label class="icon"  for="rating-1">1</label>
+            </span>
+        </fieldset>
+    </form> 
         </div>
         </div>`
+
+
+        const root = document.querySelector('.root');
+
+        root.addEventListener('click', (event) => {
+            console.log(event.target)
+        if (event.target.classList.contains('container__input')) {
+            const form = event.target;
+            console.log(form)
+
+            const key = form.id;
+            console.log(key)
+            const value = event.target.value;
+            console.log(value)
+
+            localStorage.setItem(key, value);
+
+            const icons = document.querySelector('.icon')
+            console.log(icons)
+            icons.forEach((elem) => {
+                elem.style = 'fill: black';
+            })
+
+            for (let i = 0; i < inputs.length; i++) {
+                icons[i].style = 'fill: gold';
+                if (inputs[i].checked) {
+                break
+                }
+            }
+        }
+        })
     }
-document.getElementById("heroes__content").innerHTML =  heroesContent
+    document.getElementById("heroes__content").innerHTML = heroesContent
 
 }
 )
 
 let containers;
 function initDrawers() {
-	// Get the containing elements
-	containers = document.querySelectorAll(".star-container");
-	setHeights();
-	wireUpTriggers();
-	window.addEventListener("resize", setHeights);
+    // Get the containing elements
+    containers = document.querySelectorAll(".star-container");
+    setHeights();
+    wireUpTriggers();
+    window.addEventListener("resize", setHeights);
 }
 window.addEventListener("load", initDrawers);
 
 function setHeights() {
-	containers.forEach(container => {
-		// Get content
-		let content = container.querySelector(".content");
-		// Needed if this is being fired after a resize
-		content.removeAttribute("aria-hidden");
-		// Height of content to show/hide
-		let heightOfContent = content.getBoundingClientRect().height;
-		// Set a CSS custom property with the height of content
-		container.style.setProperty("--containerHeight", `${heightOfContent}px`);
-		// Once height is read and set
-		setTimeout(e => {
-			container.classList.add("height-is-set");
-			content.setAttribute("aria-hidden", "true");
-		}, 0);
-	});
+    containers.forEach(container => {
+        // Get content
+        let content = container.querySelector(".content");
+        // Needed if this is being fired after a resize
+        content.removeAttribute("aria-hidden");
+        // Height of content to show/hide
+        let heightOfContent = content.getBoundingClientRect().height;
+        // Set a CSS custom property with the height of content
+        container.style.setProperty("--containerHeight", `${heightOfContent}px`);
+        // Once height is read and set
+        setTimeout(e => {
+            container.classList.add("height-is-set");
+            content.setAttribute("aria-hidden", "true");
+        }, 0);
+    });
 }
 
 function wireUpTriggers() {
-	containers.forEach(container => {
-		// Get each trigger element
-		let btn = container.querySelector(".trigger");
-		// Get content
-		let content = container.querySelector(".content");
-		btn.addEventListener("click", () => {
-			container.setAttribute(
-				"data-drawer-showing",
-				container.getAttribute("data-drawer-showing") === "true" ? "false" : "true"
-			);
-			content.setAttribute(
-				"aria-hidden",
-				content.getAttribute("aria-hidden") === "true" ? "false" : "true"
-			);
-		});
-	});
+    containers.forEach(container => {
+        // Get each trigger element
+        let btn = container.querySelector(".trigger");
+        // Get content
+        let content = container.querySelector(".content");
+        btn.addEventListener("click", () => {
+            container.setAttribute(
+                "data-drawer-showing",
+                container.getAttribute("data-drawer-showing") === "true" ? "false" : "true"
+            );
+            content.setAttribute(
+                "aria-hidden",
+                content.getAttribute("aria-hidden") === "true" ? "false" : "true"
+            );
+        });
+    });
 }
 
-// fetch('https://api.github.com/users/jellyjul')
-//       .then(response => response.json())
-// 			.then(data => console.log(data))
-//       .catch(err => console.log(err));
 
 
-// let logID = 'log',
-//   log = `${'<div id="'+logID+'"></div>'}`;
-// $('body').append(log);
-//   $('[type*="radio"]').change(function () {
-//     var me = $(this);
-//     log.html(me.attr('value'));
-//   });
+// let parent = document.querySelector(".marvel");
+// let form = document.createElement("form");
+// parent.parentNode.append(form)
+
+// let fieldset = document.createElement("fieldset");
+// form.append(fieldset)
+
+// let starGroup =  document.createElement("span");
+// starGroup.classList.add('star-cb-group')
+// fieldset.append(starGroup)
+
+// let inputStar1 = document.createElement("input");
+// inputStar1.type = "radio"
+// inputStar1.id = "rating-1"
+// inputStar1.name = "rating"
+// starGroup.append(inputStar1)
+
+// let label1 = document.createElement('label')
+// label1.htmlFor="rating"
+// inputStar1.append(label1)
+
+// let inputStar2 = document.createElement("input");
+// inputStar2.type = "radio"
+// inputStar2.id = "rating-2"
+// inputStar2.name = "rating"
+// starGroup.append(inputStar2)
+
+// let label2 = document.createElement('label')
+// label2.htmlFor="rating"
+// inputStar2.append(label2)
+
+// let inputStar3 = document.createElement("input");
+// inputStar3.type = "radio"
+// inputStar3.id = "rating-3"
+// inputStar3.name = "rating"
+// starGroup.append(inputStar3)
+
+// let label3 = document.createElement('label')
+// label3.htmlFor="rating"
+// inputStar3.append(label3)
+
+// let inputStar4 = document.createElement("input");
+// inputStar4.type = "radio"
+// inputStar4.id = "rating-4"
+// inputStar4.name = "rating"
+// starGroup.append(inputStar4)
+
+// let label4 = document.createElement('label')
+// label4.htmlFor="rating"
+// inputStar4.append(label4)
+
+// let inputStar5 = document.createElement("input");
+// inputStar5.type = "radio"
+// inputStar5.id = "rating-5"
+// inputStar5.name = "rating"
+// starGroup.append(inputStar5)
+
+// let label5 = document.createElement('label')
+// label5.htmlFor="rating"
+// inputStar5.append(label5)

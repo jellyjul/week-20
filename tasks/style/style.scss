@@ -93,7 +93,7 @@ $checked-color: #e52;
     /* flip the order so we can use the + and ~ combinators */
     unicode-bidi: bidi-override;
     direction: rtl;
-    & > input {
+    input {
         display: none;
         & + label {
             /* only enough room for the star */
@@ -110,37 +110,38 @@ $checked-color: #e52;
                 color: $unchecked-color;
             }
         }
-        &:checked ~ label:before,
-        & + label:hover ~ label:before,
+        // &:checked ~ label:before,
+        // & + label:hover ~ label:before,
         & + label:hover:before {
             content: $checked-star;
             color: #e52;
             text-shadow: 0 0 1px #333;
         }
     }
-
-    /* the hidden clearer */
-    & > .star-cb-clear + label {
-        text-indent: -9999px;
-        width: 0.5em;
-        margin-left: -0.5em;
-    }
-    & > .star-cb-clear + label:before {
-        width: 0.5em;
-    }
-
-    &:hover > input + label:before {
-        content: $unchecked-star;
-        color: $unchecked-color;
-        text-shadow: none;
-    }
-    &:hover > input + label:hover ~ label:before,
-    &:hover > input + label:hover:before {
-        content: $checked-star;
-        color: $checked-color;
-        text-shadow: 0 0 1px #333;
-    }
 }
+
+//     /* the hidden clearer */
+//     & > .star-cb-clear + label {
+//         text-indent: -9999px;
+//         width: 0.5em;
+//         margin-left: -0.5em;
+//     }
+//     & > .star-cb-clear + label:before {
+//         width: 0.5em;
+//     }
+
+//     &:hover > input + label:before {
+//         content: $unchecked-star;
+//         color: $unchecked-color;
+//         text-shadow: none;
+//     }
+//     &:hover > input + label:hover ~ label:before,
+//     &:hover > input + label:hover:before {
+//         content: $checked-star;
+//         color: $checked-color;
+//         text-shadow: 0 0 1px #333;
+//     }
+// }
 
 // extra styles
 :root {
